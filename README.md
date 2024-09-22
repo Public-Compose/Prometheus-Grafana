@@ -7,6 +7,6 @@ docker-compose restart
 ```
 
 ## Grafana
-#### 1. 默认账号密码
+登录地址：http://IP:3000
 账号: admin
 密码: admin
