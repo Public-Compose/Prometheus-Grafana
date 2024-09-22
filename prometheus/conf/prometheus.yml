@@ -24,7 +24,7 @@ scrape_configs:
     scrape_interval: 60s
     static_configs:
     - targets:
-      - 'localhost:29090'
+      - 'localhost:9090'
       labels:
         hostname: Prometheus-Server
 
