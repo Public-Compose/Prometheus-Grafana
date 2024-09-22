@@ -74,7 +74,7 @@ services:
     ports:
       - "9115:9115"
     volumes:
-      - ./blackbox_exporter/data:/etc/blackbox_exporter
+      - ./blackbox_exporter/conf/blackbox.yml:/opt/bitnami/blackbox-exporter/blackbox.yml
     networks:
       - net-prometheus
 

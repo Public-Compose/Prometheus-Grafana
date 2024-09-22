@@ -1,51 +1,13 @@
 modules:
   http_2xx:
     prober: http
+    timeout: 9s
     http:
-      preferred_ip_protocol: "ip4"
-  http_post_2xx:
-    prober: http
-    http:
-      method: POST
-  tcp_connect:
-    prober: tcp
-  pop3s_banner:
-    prober: tcp
-    tcp:
-      query_response:
-      - expect: "^+OK"
-      tls: true
+      valid_status_codes: [200,405,412] # 有效的状态码，默认为200，也可以自己定义，比如你的站点304也可能是正常的
+      method: GET
+      preferred_ip_protocol: "ip4"  # 指定使用ipv4连接，防止部分ipv6站点检测失败
+      headers:
+        User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.41"
+      fail_if_body_not_matches_regexp: [] # 对返回结果进行正则匹配，如果未匹配成功则>认为失败
       tls_config:
-        insecure_skip_verify: false
-  grpc:
-    prober: grpc
-    grpc:
-      tls: true
-      preferred_ip_protocol: "ip4"
-  grpc_plain:
-    prober: grpc
-    grpc:
-      tls: false
-      service: "service1"
-  ssh_banner:
-    prober: tcp
-    tcp:
-      query_response:
-      - expect: "^SSH-2.0-"
-      - send: "SSH-2.0-blackbox-ssh-check"
-  irc_banner:
-    prober: tcp
-    tcp:
-      query_response:
-      - send: "NICK prober"
-      - send: "USER prober prober prober :prober"
-      - expect: "PING :([^ ]+)"
-        send: "PONG ${1}"
-      - expect: "^:[^ ]+ 001"
-  icmp:
-    prober: icmp
-  icmp_ttl5:
-    prober: icmp
-    timeout: 5s
-    icmp:
-      ttl: 5
+        insecure_skip_verify: true

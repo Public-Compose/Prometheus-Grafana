@@ -1,0 +1,6 @@
+- targets:
+  - https://www.baidu.com
+  labels:
+    project: 测试项目
+    desc: 测试系统
+    env: 测试标签
