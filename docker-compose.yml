@@ -16,6 +16,7 @@ services:
       - ./prometheus/conf/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
       - ./prometheus/data:/opt/bitnami/prometheus/data
       - ./prometheus/rules:/opt/bitnami/prometheus/rules
+      - ./prometheus/blackbox:/opt/bitnami/prometheus/blackbox
     command: 
       - '--config.file=/opt/bitnami/prometheus/conf/prometheus.yml'
       - '--storage.tsdb.path=/opt/bitnami/prometheus/data'
