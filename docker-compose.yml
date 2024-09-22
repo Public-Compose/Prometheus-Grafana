@@ -1,0 +1,82 @@
+version: '3'
+services:
+  prometheus:
+    image: bitnami/prometheus:2.41.0
+    restart: always
+    container_name: prometheus
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - 9090:9090
+    depends_on:
+      - alertmanager
+      - pushgateway
+      - blackbox_exporter
+    volumes:  
+      - ./prometheus/conf/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - ./prometheus/data:/opt/bitnami/prometheus/data
+      - ./prometheus/rules:/opt/bitnami/prometheus/rules
+    command: 
+      - '--config.file=/opt/bitnami/prometheus/conf/prometheus.yml'
+      - '--storage.tsdb.path=/opt/bitnami/prometheus/data'
+      - '--web.listen-address=:9090'
+      - '--web.max-connections=1024'
+      - '--query.max-concurrency=1024'
+      - '--storage.tsdb.retention=30d'
+      - '--storage.tsdb.retention.size=2TB'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.no-lockfile'
+    networks:
+      - net-prometheus
+
+  grafana:
+    image: grafana/grafana:9.3.6
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      #- ./conf/grafana:/etc/grafana
+      - ./grafana/data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - net-prometheus
+
+  alertmanager:
+    image: bitnami/alertmanager:0.27.0
+    hostname: alertmanager
+    container_name: alertmanager
+    restart: always
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager/data:/var/lib/alertmanager
+    networks:
+      - net-prometheus
+
+  pushgateway:
+    image: bitnami/pushgateway:1.9.0
+    container_name: pushgateway
+    restart: always
+    ports:
+      - "9091:9091"
+    volumes:
+      - ./pushgateway/data:/var/lib/pushgateway
+    networks:
+      - net-prometheus
+
+  blackbox_exporter:
+    image: bitnami/blackbox-exporter:0.25.0
+    container_name: blackbox_exporter
+    restart: always
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox_exporter/data:/etc/blackbox_exporter
+    networks:
+      - net-prometheus
+
+networks:
+  net-prometheus:
+    driver: bridge
