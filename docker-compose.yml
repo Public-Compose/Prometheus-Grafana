@@ -4,6 +4,7 @@ services:
     image: bitnami/prometheus:2.41.0
     restart: always
     container_name: prometheus
+    privileged: true
     environment:
       TZ: Asia/Shanghai
     ports:
@@ -32,8 +33,9 @@ services:
 
   grafana:
     image: grafana/grafana:9.3.6
-    container_name: grafana
     restart: always
+    container_name: grafana
+    privileged: true
     ports:
       - "3000:3000"
     volumes:
@@ -46,9 +48,9 @@ services:
 
   alertmanager:
     image: bitnami/alertmanager:0.27.0
-    hostname: alertmanager
-    container_name: alertmanager
     restart: always
+    container_name: alertmanager
+    privileged: true
     ports:
       - "9093:9093"
     volumes:
@@ -58,8 +60,9 @@ services:
 
   pushgateway:
     image: bitnami/pushgateway:1.9.0
-    container_name: pushgateway
     restart: always
+    container_name: pushgateway
+    privileged: true
     ports:
       - "9091:9091"
     volumes:
@@ -69,8 +72,8 @@ services:
 
   blackbox_exporter:
     image: bitnami/blackbox-exporter:0.25.0
-    container_name: blackbox_exporter
     restart: always
+    container_name: blackbox_exporter
     ports:
       - "9115:9115"
     volumes:
