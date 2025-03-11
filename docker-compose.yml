@@ -1,7 +1,7 @@
 version: '3'
 services:
   prometheus:
-    image: bitnami/prometheus:2.41.0
+    image: registry.cn-guangzhou.aliyuncs.com/hzbb/prometheus:2.41.0
     restart: always
     container_name: prometheus
     privileged: true
@@ -32,7 +32,7 @@ services:
       - net-prometheus
 
   grafana:
-    image: grafana/grafana:9.3.6
+    image: registry.cn-guangzhou.aliyuncs.com/hzbb/grafana:9.3.6
     restart: always
     container_name: grafana
     privileged: true
@@ -47,7 +47,7 @@ services:
       - net-prometheus
 
   alertmanager:
-    image: bitnami/alertmanager:0.27.0
+    image: registry.cn-guangzhou.aliyuncs.com/hzbb/alertmanager:0.27.0
     restart: always
     container_name: alertmanager
     privileged: true
@@ -59,7 +59,7 @@ services:
       - net-prometheus
 
   pushgateway:
-    image: bitnami/pushgateway:1.9.0
+    image: registry.cn-guangzhou.aliyuncs.com/hzbb/pushgateway:1.9.0
     restart: always
     container_name: pushgateway
     privileged: true
@@ -71,7 +71,7 @@ services:
       - net-prometheus
 
   blackbox_exporter:
-    image: bitnami/blackbox-exporter:0.25.0
+    image: registry.cn-guangzhou.aliyuncs.com/hzbb/blackbox-exporter:0.25.0
     restart: always
     container_name: blackbox_exporter
     ports:
