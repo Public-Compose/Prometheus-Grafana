@@ -52,22 +52,22 @@ scrape_configs:
       - target_label: __address__
         replacement: blackbox_exporter:9115
 
-  - job_name: "huawei_switch"
+  - job_name: 'huawei_switch'
     scrape_interval: 15s
     scrape_timeout: 10s
+    metrics_path: /snmp
     file_sd_configs:
       - files: 
-        - /etc/prometheus/snmp/network/huawei-switch.yml
-        refresh_interval: 2m
-    metrics_path: /snmp
+        - '/opt/bitnami/prometheus/snmp/huawei-switch.yml'
+        refresh_interval: 60s
     relabel_configs:
-    - source_labels: ["__address__"]
-      target_label: __param_target
-    - source_labels: ["__param_target"]
-      target_label: instance
-    - target_label: __address__
-      replacement: snmp_exporter:9116
-    - source_labels: ["module"]
-      target_label: __param_module
-    - source_labels: ["auth"]
-      target_label: __param_auth
+      - source_labels: [__address__] 
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: snmp_exporter:9116
+      - source_labels: [module]
+        target_label: __param_module
+      - source_labels: [auth]
+        target_label: __param_auth

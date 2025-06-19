@@ -24,10 +24,17 @@ docker-compose restart
 访问地址：http://IP:9115
 
 ## SNMP
-已有huawei交换机
+华为交换机
 访问地址：http://IP:9116
-* community要与设备的snmp配置的团体名一致
-* Auth、Module即为yml文件中modules、auths的名称
+* prometheus/snmp目录，yml配置需要修改为对应的华为交换机ip
+* snmp_exporter/conf：
+    * community要与设备的snmp配置的团体名一致
+    * Wei UI的Auth、Module即为yml文件中auths、modules的名称
+    * 例如：
+      * Target:   # 实际的华为交换机ip
+      * Auth:   public_v2
+      * Module:   huawei_common,huawei_core
+
 
 </br>
 
@@ -42,4 +49,4 @@ grafana.json
 
 
 ## 参考链接
-https://github.com/robotneo/networkdevice-monitor
+[robotneo/networkdevice-monitor: 基于Prometheus + SNMP Exporter对网络设备的监控](https://github.com/robotneo/networkdevice-monitor)

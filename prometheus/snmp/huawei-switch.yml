@@ -6,7 +6,7 @@
 #    model: S5736-XXXX        # 设备名称，可删除可自定义
     env: SW
   targets:
-    - X.X.X.X   # 需要采集的交换机管理IP
+    - X.X.X.X  # 需要采集的交换机管理IP
 #- labels:
 #    module: HUAWEI
 #    auth: public_v2
