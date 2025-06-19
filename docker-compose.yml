@@ -70,6 +70,22 @@ services:
     networks:
       - net-prometheus
 
+  snmp_exporter:
+    image: registry.cn-guangzhou.aliyuncs.com/wyzzzzzz/snmp-exporter:0.25.0
+    restart: always
+    container_name: snmp_exporter
+    privileged: true
+    ports:
+      - "9116:9116"
+    volumes:
+    # 后面可以填加其他设备的yml
+      - ./snmp_exporter/conf/:/etc/snmp_exporter/
+    command:
+    # 与之对应这里也要添加 
+      - '--config.file=/etc/snmp_exporter/snmp_huawei_switch.yml'
+    networks:
+      - net-prometheus
+
   blackbox_exporter:
     image: registry.cn-guangzhou.aliyuncs.com/hzbb/blackbox-exporter:0.25.0
     restart: always
