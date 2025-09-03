@@ -1,0 +1,17 @@
+- labels:
+    module: huawei_common,huawei_core   # conf目录下对应的yml中定义的指标模块名称，如果有多个可以写多个模块名
+    auth: public_v2     # 认证模块名
+    brand: Huawei       # 可删除可自定义
+#    hostname: XX-XXXX-CORE  # 可删除可自定义
+#    model: S5736-XXXX        # 设备名称，可删除可自定义
+    env: SW
+  targets:
+    - X.X.X.X  # 需要采集的交换机管理IP
+#- labels:
+#    module: HUAWEI
+#    auth: public_v2
+#    brand: Huawei
+#    hostname: XXXX-XXX-XX-AG
+#    model: S5736-XXXX
+#  targets:
+#    - X.X.X.X   # 需要采集的交换机管理IP

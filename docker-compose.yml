@@ -18,6 +18,7 @@ services:
       - ./prometheus/data:/opt/bitnami/prometheus/data
       - ./prometheus/rules:/opt/bitnami/prometheus/rules
       - ./prometheus/blackbox:/opt/bitnami/prometheus/blackbox
+      - ./prometheus/snmp:/opt/bitnami/prometheus/snmp
     command: 
       - '--config.file=/opt/bitnami/prometheus/conf/prometheus.yml'
       - '--storage.tsdb.path=/opt/bitnami/prometheus/data'
@@ -67,6 +68,22 @@ services:
       - "9091:9091"
     volumes:
       - ./pushgateway/data:/var/lib/pushgateway
+    networks:
+      - net-prometheus
+
+  snmp_exporter:
+    image: registry.cn-guangzhou.aliyuncs.com/wyzzzzzz/snmp-exporter:0.25.0
+    restart: always
+    container_name: snmp_exporter
+    privileged: true
+    ports:
+      - "9116:9116"
+    volumes:
+    # 后面可以填加其他设备的yml
+      - ./snmp_exporter/conf/:/etc/snmp_exporter/
+    command:
+    # 与之对应这里也要添加 
+      - '--config.file=/etc/snmp_exporter/snmp_huawei_switch.yml'
     networks:
       - net-prometheus
 
